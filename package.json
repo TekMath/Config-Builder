@@ -1,0 +1,17 @@
+{
+  "name": "configbuilder",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "bun-types": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "scripts": {
+    "docker-clear": "docker rmi configbuilder",
+    "docker-build": "bun docker-clear; docker build -t configbuilder .",
+    "start": "docker run --rm -v `pwd`/config:/usr/src/app/config configbuilder",
+    "local": "bun index.ts"
+  }
+}
