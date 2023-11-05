@@ -1,0 +1,28 @@
+name: "CD: Publish"
+
+on:
+    push:
+        branches: [ main ]
+    workflow_dispatch:
+
+jobs:
+    publish_docker:
+        name: "🐳 Publish project to docker"
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+
+        steps:
+            - name: "📥 Checkout repository"
+              uses: actions/checkout@v3
+            
+            - name: "🔒 Login Github Container Registry"
+              uses: docker/login-action@v2
+              with:
+                registry: ghcr.io
+                username: ${{ github.actor }}
+                password: ${{ secrets.GITHUB_TOKEN }}
+            
+            - name: "⚙️ Build image"
+              run: |
+                docker build . --tag ghcr.io/tekmath/config-builder:latest
+                docker push ghcr.io/tekmath/config-builder:latest
