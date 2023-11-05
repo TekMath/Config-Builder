@@ -45,7 +45,7 @@ The configuration file should look like this:
 
 With docker you can execute:
 ```bash
-docker run --rm -v `pwd`/config:/usr/src/app/config configbuilder
+docker run --rm -v `pwd`/config:/usr/src/app/config --env-file .env configbuilder
 ```
 **or**
 ```bash
